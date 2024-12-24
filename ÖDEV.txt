@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <p>Todo App</p>
+    <style>
+        .button {
+            background-color: blue;
+            color: white;
+            cursor: pointer;
+        }
+
+        .delete-button {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body> 
+    <form>
+        <input type="text" id="txtTaskName" placeholder="Görev adı girin">
+        <button type="button" class="button" onclick="newTask()">EKLE</button>
+    </form>
+
+    <ul id="taskList">
+        <li><input type="checkbox"> Görev1</li>
+        <li><input type="checkbox"> Görev2</li>
+        <li><input type="checkbox"> Görev3</li>
+        <li><input type="checkbox"> Görev4</li>
+    </ul>
+
+    <button class="delete-button" onclick="removeCompletedTasks()">SİL</button>
+
+    <script>
+        function newTask() {
+            let taskInput = document.querySelector('#txtTaskName');
+            let taskValue = taskInput.value;
+
+            if (taskValue.trim() === "") {
+                alert("Lütfen bir görev adı girin!");
+                return;
+            }
+
+            let todoList = document.createElement('li');
+            todoList.innerHTML = `<input type="checkbox"> ${taskValue}`;
+            document.getElementById('taskList').appendChild(todoList);
+            taskInput.value = "";
+        }
+
+        function removeCompletedTasks() {
+            let tasks = document.querySelectorAll('#taskList li');
+            tasks.forEach(task => {
+                let checkbox = task.querySelector('input[type="checkbox"]');
+                if (checkbox.checked) {
+                    task.remove();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
